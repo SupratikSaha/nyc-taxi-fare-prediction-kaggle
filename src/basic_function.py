@@ -123,9 +123,8 @@ def dist_to_airport(data, lat_airport, lon_airport, airport_name):
     df['dropoff_dlon'] = np.abs(df['dropoff_longitude'] - lon_airport) * 50
     df['dropoff_dlat'] = np.abs(df['dropoff_latitude'] - lat_airport) * 69
 
-    df['dropoff_Euclidean_' + airport_name] = (
-                                                      df['dropoff_dlon'] ** 2 + df['dropoff_dlat'] ** 2
-                                              ) ** 0.5
+    df['dropoff_Euclidean_' + airport_name] = \
+        (df['dropoff_dlon'] ** 2 + df['dropoff_dlat'] ** 2) ** 0.5
 
     df['dropoff_delta_manh_long'] = np.abs(
         df['dropoff_Euclidean_' + airport_name] *
@@ -220,22 +219,19 @@ def county_feats(df):
 
 ###############################################################################
 # feature engineering: ORSM distance
-###############################################################################  
+###############################################################################
 def predict_osrm_feature(df):
-    ## get nn model
+    # get nn model
     # dist
-    pkl_dist_filename = ('/Users/ycao/Desktop/taxi_fare_prediction/'
-                         'simple_model/nn_osrm_dist.pkl')
+    pkl_dist_filename = '../simple_model/nn_osrm_dist.pkl'
     neigh_dist = joblib.load(pkl_dist_filename)
 
     # time
-    pkl_time_filename = ('/Users/ycao/Desktop/taxi_fare_prediction/'
-                         'simple_model/nn_osrm_time.pkl')
+    pkl_time_filename = '../simple_model/nn_osrm_time.pkl'
     neigh_time = joblib.load(pkl_time_filename)
 
     # step
-    pkl_step_filename = ('/Users/ycao/Desktop/taxi_fare_prediction/'
-                         'simple_model/nn_osrm_step.pkl')
+    pkl_step_filename = '../simple_model/nn_osrm_step.pkl'
     neigh_step = joblib.load(pkl_step_filename)
 
     # predict OSRM distance  
@@ -581,8 +577,7 @@ def year_weekday_location_fare_stat(df, stat_file):
 # add fare distribution based on longitude and latitdue
 def long_lat_stat(df):
     # load prepared features
-    long_lat_stat = pd.read_csv('/Users/ycao/Desktop/taxi_fare_prediction/'
-                                'new_feature/long_lat_stat.csv')
+    long_lat_stat = pd.read_csv('../new_feature/long_lat_stat.csv')
 
     # get the first 1 decimal of longtitude and latitude
     df['plong'] = df['pickup_longitude'].round(1)
@@ -627,10 +622,7 @@ def long_lat_stat(df):
 # add fare distribution based on month, longitude and latitdue
 def month_long_lat_stat(df):
     # load prepared features
-    month_long_lat_stat = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/month_long_lat_stat.csv'
-    )
+    month_long_lat_stat = pd.read_csv('../new_feature/month_long_lat_stat.csv')
 
     # get the first 1 decimal of longtitude and latitude
     df['plong'] = df['pickup_longitude'].round(1)
@@ -675,10 +667,7 @@ def month_long_lat_stat(df):
 # add fare distribution based on weekday, longitude and latitdue
 def weekday_long_lat_stat(df):
     # load prepared features
-    weekday_long_lat_stat = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/weekday_long_lat_stat.csv'
-    )
+    weekday_long_lat_stat = pd.read_csv('../new_feature/weekday_long_lat_stat.csv')
 
     # to match the weekday between bigquery and python
     # for bigquery: Sunday -> Saturday: 1 -> 7
@@ -731,10 +720,7 @@ def weekday_long_lat_stat(df):
 # add fare distribution based on year, longitude and latitdue
 def year_long_lat_stat(df):
     # load prepared features
-    year_long_lat_stat = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_long_lat_stat.csv'
-    )
+    year_long_lat_stat = pd.read_csv('../new_feature/year_long_lat_stat.csv')
 
     # get the first 1 decimal of longtitude and latitude
     df['plong'] = df['pickup_longitude'].round(1)
@@ -779,40 +765,19 @@ def year_long_lat_stat(df):
 # add fare distribution based on year, month, day, and hour
 def year_month_day_hour_stat(df):
     # load prepared features
-    year_month_day_hour_stat_2009 = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_month_day_hour_2009.csv'
-    )
+    year_month_day_hour_stat_2009 = pd.read_csv('../new_feature/year_month_day_hour_2009.csv')
 
-    year_month_day_hour_stat_2010 = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_month_day_hour_2010.csv'
-    )
+    year_month_day_hour_stat_2010 = pd.read_csv('../new_feature/year_month_day_hour_2010.csv')
 
-    year_month_day_hour_stat_2011 = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_month_day_hour_2011.csv'
-    )
+    year_month_day_hour_stat_2011 = pd.read_csv('../new_feature/year_month_day_hour_2011.csv')
 
-    year_month_day_hour_stat_2012 = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_month_day_hour_2012.csv'
-    )
+    year_month_day_hour_stat_2012 = pd.read_csv('../new_feature/year_month_day_hour_2012.csv')
 
-    year_month_day_hour_stat_2013 = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_month_day_hour_2013.csv'
-    )
+    year_month_day_hour_stat_2013 = pd.read_csv('../new_feature/year_month_day_hour_2013.csv')
 
-    year_month_day_hour_stat_2014 = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_month_day_hour_2014.csv'
-    )
+    year_month_day_hour_stat_2014 = pd.read_csv('../new_feature/year_month_day_hour_2014.csv')
 
-    year_month_day_hour_stat_2015 = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_month_day_hour_2015.csv'
-    )
+    year_month_day_hour_stat_2015 = pd.read_csv('../new_feature/year_month_day_hour_2015.csv')
 
     year_month_day_hour_stat = pd.concat(
         [
@@ -855,10 +820,7 @@ def year_month_day_hour_stat(df):
 # add fare distribution based on year, month, day
 def year_month_day_stat(df):
     # load prepared features
-    year_month_day_stat = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_month_day_stat.csv'
-    )
+    year_month_day_stat = pd.read_csv('../new_feature/year_month_day_stat.csv')
 
     # left join two table to get stats
     df = pd.merge(
@@ -888,10 +850,7 @@ def year_month_day_stat(df):
 # add fare distribution based on year, month, hour
 def year_month_hour_stat(df):
     # load prepared features
-    year_month_hour_stat = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_month_hour_stat.csv'
-    )
+    year_month_hour_stat = pd.read_csv('../new_feature/year_month_hour_stat.csv')
 
     # left join two table to get stats
     df = pd.merge(
@@ -921,10 +880,7 @@ def year_month_hour_stat(df):
 # add fare distribution based on year, month, weekday
 def year_month_weekday_stat(df):
     # load prepared features
-    year_month_weekday_stat = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_month_weekday_stat.csv'
-    )
+    year_month_weekday_stat = pd.read_csv('../new_feature/year_month_weekday_stat.csv')
 
     # to match the weekday between bigquery and python
     # for bigquery: Sunday -> Saturday: 1 -> 7
@@ -964,10 +920,7 @@ def year_month_weekday_stat(df):
 # add fare distribution based on year, week
 def year_week_stat(df):
     # load prepared features
-    year_week_stat = pd.read_csv(
-        '/Users/ycao/Desktop/taxi_fare_prediction/'
-        'new_feature/year_week_stat.csv'
-    )
+    year_week_stat = pd.read_csv('../new_feature/year_week_stat.csv')
 
     # left join two table to get stats
     df = pd.merge(
@@ -999,8 +952,7 @@ def year_week_stat(df):
 # simple regression based on distance
 def reg_on_distance(df):
     # Load from file
-    pkl_filename = ("/Users/ycao/Desktop/taxi_fare_prediction/"
-                    "simple_regression.pkl")
+    pkl_filename = "'../simple_regression.pkl"
 
     with open(pkl_filename, 'rb') as file:
         regr = pickle.load(file)

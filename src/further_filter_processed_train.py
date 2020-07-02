@@ -9,7 +9,7 @@ import pandas as pd
 ###############################################################################
 
 # Train holdout data
-train_file = '../data/filter_train_holdout.csv'
+train_file = '../filtered_data/filter_train_holdout.csv'
 
 # load data
 train_df = pd.read_csv(train_file)
