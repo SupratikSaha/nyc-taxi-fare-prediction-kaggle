@@ -1,5 +1,5 @@
 """
-Basic functions for featutre engineering
+Basic functions for feature engineering
 """
 
 import pandas as pd
@@ -59,7 +59,7 @@ def sphere_distance(longitude_1, latitude_1, longitude_2, latitude_2):
     return sphere_distance
 
 
-# calculate the distance based on dataframe containing latitude and longitude
+# calculate the distance based on data frame containing latitude and longitude
 def distance(df):
     meas_ang = 0.506  # 29 degrees = 0.506 radians
 
@@ -119,7 +119,7 @@ def dist_to_airport(data, lat_airport, lon_airport, airport_name):
 
     meas_ang = 0.506  # 29 degrees = 0.506 radians
 
-    # dropoff
+    # drop off
     df['dropoff_dlon'] = np.abs(df['dropoff_longitude'] - lon_airport) * 50
     df['dropoff_dlat'] = np.abs(df['dropoff_latitude'] - lat_airport) * 69
 
@@ -145,9 +145,8 @@ def dist_to_airport(data, lat_airport, lon_airport, airport_name):
     df['pickup_dlon'] = np.abs(df['pickup_longitude'] - lon_airport) * 50
     df['pickup_dlat'] = np.abs(df['pickup_latitude'] - lat_airport) * 69
 
-    df['pickup_Euclidean_' + airport_name] = (
-                                                     df['pickup_dlon'] ** 2 + df['pickup_dlat'] ** 2
-                                             ) ** 0.5
+    df['pickup_Euclidean_' + airport_name] = (df['pickup_dlon'] ** 2 + df['pickup_dlat'] ** 2
+                                              ) ** 0.5
 
     df['pickup_delta_manh_long'] = np.abs(
         df['pickup_Euclidean_' + airport_name] *
@@ -218,7 +217,7 @@ def county_feats(df):
 
 
 ###############################################################################
-# feature engineering: ORSM distance
+# feature engineering: OSRM distance
 ###############################################################################
 def predict_osrm_feature(df):
     # get nn model
@@ -402,10 +401,10 @@ def nn_reg_on_location(df, pkl_filename):
 
 
 ###############################################################################
-# feature engineering: catboost prediction (based on pure time)
+# feature engineering: cat-boost prediction (based on pure time)
 ############################################################################### 
 def catboost_on_time(df, pkl_filename):
-    ## Load from file
+    # Load from file
     catboost = joblib.load(pkl_filename)
 
     # get the prediction    
@@ -572,9 +571,9 @@ def year_weekday_location_fare_stat(df, stat_file):
 
 
 ###############################################################################
-# feature engineering: historial features
+# feature engineering: historical features
 ###############################################################################
-# add fare distribution based on longitude and latitdue
+# add fare distribution based on longitude and latitude
 def long_lat_stat(df):
     # load prepared features
     long_lat_stat = pd.read_csv('../new_feature/long_lat_stat.csv')
@@ -619,7 +618,7 @@ def long_lat_stat(df):
     return df
 
 
-# add fare distribution based on month, longitude and latitdue
+# add fare distribution based on month, longitude and latitude
 def month_long_lat_stat(df):
     # load prepared features
     month_long_lat_stat = pd.read_csv('../new_feature/month_long_lat_stat.csv')
@@ -664,20 +663,20 @@ def month_long_lat_stat(df):
     return df
 
 
-# add fare distribution based on weekday, longitude and latitdue
+# add fare distribution based on weekday, longitude and latitude
 def weekday_long_lat_stat(df):
     # load prepared features
     weekday_long_lat_stat = pd.read_csv('../new_feature/weekday_long_lat_stat.csv')
 
-    # to match the weekday between bigquery and python
-    # for bigquery: Sunday -> Saturday: 1 -> 7
+    # to match the weekday between big-query and python
+    # for big-query: Sunday -> Saturday: 1 -> 7
     # for python: Sunday -> Saturday: 6, 0 -> 5
     weekday_long_lat_stat['weekday'] = (weekday_long_lat_stat['weekday'] - 2)
     weekday_long_lat_stat.loc[
         weekday_long_lat_stat['weekday'] == -1, 'weekday'
     ] = 6
 
-    # get the first 1 decimal of longtitude and latitude
+    # get the first 1 decimal of longitude and latitude
     df['plong'] = df['pickup_longitude'].round(1)
     df['plat'] = df['pickup_latitude'].round(1)
     df['dlong'] = df['dropoff_longitude'].round(1)
@@ -717,7 +716,7 @@ def weekday_long_lat_stat(df):
     return df
 
 
-# add fare distribution based on year, longitude and latitdue
+# add fare distribution based on year, longitude and latitude
 def year_long_lat_stat(df):
     # load prepared features
     year_long_lat_stat = pd.read_csv('../new_feature/year_long_lat_stat.csv')

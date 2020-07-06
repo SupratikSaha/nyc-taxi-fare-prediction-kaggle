@@ -22,20 +22,19 @@ train_fr_new = train_fr[
 ]
 
 # a different training set from OSRM (no fare amount)
-data = pd.read_csv('/Users/ycao/Desktop/taxi_fare_prediction/'
-                   'new-york-city-taxi-with-osrm/train.csv')
+data = pd.read_csv('../new-york-city-taxi-with-osrm/train.csv')
 
 ###############################################################################
-# data preprocessing
+# data pre-processing
 ###############################################################################
 # clean data
-# remove longitudes outliers
+# remove longitude outliers
 data = data[data['pickup_longitude'] >= -80]
 data = data[data['pickup_longitude'] <= -70]
 data = data[data['dropoff_longitude'] >= -80]
 data = data[data['dropoff_longitude'] <= -70]
 
-# remove latittudes outliers
+# remove latitude outliers
 data = data[data['pickup_latitude'] >= 35]
 data = data[data['pickup_latitude'] <= 45]
 data = data[data['dropoff_latitude'] >= 35]
@@ -44,7 +43,7 @@ data = data[data['dropoff_latitude'] <= 45]
 # remove missing samples
 data = data.dropna()
 
-# join two dataframes
+# join two data frames
 data = pd.merge(data, train_fr_new, on='id', how='left')
 
 osrm_data = data[
@@ -57,9 +56,7 @@ osrm_data = data[
 osrm_data = osrm_data.dropna()
 
 # save result
-osrm_data.to_csv('../new-york-city-taxi-with-osrm/osrm_data.csv',
-                 index=False
-                 )
+osrm_data.to_csv('../new-york-city-taxi-with-osrm/osrm_data.csv', index=False)
 
 ###############################################################################
 # fit KNN for OSRM train data
